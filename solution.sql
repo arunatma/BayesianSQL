@@ -21,7 +21,7 @@ DROP VIEW IF EXISTS temp_view;
 CREATE VIEW temp_view as SELECT a.a as a, d.d as d, SUM(a.p*b.p*d.p) as probability FROM a, b, d WHERE d.a=a.a AND d.b=b.b AND b.b='f' GROUP BY a.a, d.d;
 SELECT a, d, probability/(SELECT SUM(probability) FROM temp_view) FROM temp_view WHERE a='t' AND d='t';
 
-/* 6 */
+/* 6 P(C=T | A=F, E=T) */
 DROP VIEW IF EXISTS temp_view; 
 CREATE VIEW temp_view as SELECT c.c as c, SUM(a.p*c.p*e.p) as probability FROM a, c, e WHERE c.a=a.a AND e.c=c.c AND a.a='f' AND e.e='t' GROUP BY c.c;
 SELECT c, probability/(SELECT SUM(probability) FROM temp_view) FROM temp_view WHERE c='t';
